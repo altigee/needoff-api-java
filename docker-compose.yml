@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   mysql:
     image: mysql:8.0
@@ -10,7 +10,19 @@ services:
       MYSQL_DATABASE: needoff
     volumes:
       - needoff-mysql-vol:/var/lib/mysql
+    networks:
+      - needoff-network
+
+  needoff-api:
+    image: needoff-api:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - needoff-network
 
 volumes:
   needoff-mysql-vol:
     driver: local
+
+networks:
+  needoff-network:
