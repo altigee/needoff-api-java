@@ -1,0 +1,28 @@
+global com.altigee.needoff.rules.model.DayOffBalance dayOffBalance
+import com.altigee.needoff.balance.model.LeaveType
+import com.altigee.needoff.balance.model.DayOff
+import com.altigee.needoff.rules.model.DayOffRequest
+import java.time.LocalDate
+import java.time.DayOfWeek
+import java.time.temporal.ChronoField
+import java.util.Objects
+
+
+
+rule "calculate paid leaves"
+when
+    dayOffRequest:DayOffRequest(LeaveType.VACATION_PAID == dayOff.getLeaveType() && !isOfficialHoliday() && !isWeekend(date))
+then
+    dayOffBalance.setUsedPaidLeaves(dayOffBalance.getUsedPaidLeaves() + 1);
+end
+
+
+function  boolean isWeekend(LocalDate date){
+
+     DayOfWeek day = DayOfWeek.of(date.get(ChronoField.DAY_OF_WEEK));
+
+     if(day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY )
+        return true;
+     else
+        return false;
+}
