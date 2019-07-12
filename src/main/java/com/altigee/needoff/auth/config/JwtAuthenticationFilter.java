@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     try {
       var header = request.getHeader(AUTH_HEADER);
       if (header == null || !header.startsWith(BEARER_PREFIX)) {
-        throw new InvalidPropertiesFormatException("Missing or invalid token");
+        throw new InvalidTokenException("Missing or invalid token");
       }
       var authToken = header.replace(BEARER_PREFIX, "");
       var jwt = jwtService.parseToken(authToken);

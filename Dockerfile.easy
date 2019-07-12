@@ -1,0 +1,6 @@
+FROM openjdk:11.0.3-stretch
+COPY . /application
+WORKDIR /application
+RUN ./gradlew build -x test
+EXPOSE 8080
+ENTRYPOINT chmod +x ./run.sh && ./run.sh
