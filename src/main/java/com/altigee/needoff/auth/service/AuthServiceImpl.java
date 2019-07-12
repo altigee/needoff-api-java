@@ -4,6 +4,7 @@ import com.altigee.needoff.auth.data.AccountRepo;
 import com.altigee.needoff.auth.dto.*;
 import com.altigee.needoff.auth.exception.*;
 import com.altigee.needoff.auth.model.Account;
+import com.altigee.needoff.users.service.ProfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,15 @@ public class AuthServiceImpl implements AuthService {
   private final JwtService jwtService;
   private final PasswordEncoder passwordEncoder;
   private final SaltCreator saltCreator;
+  private final ProfileService profileService;
 
   @Autowired
-  public AuthServiceImpl(AccountRepo accountRepo, JwtService jwtService, PasswordEncoder passwordEncoder, SaltCreator saltCreator) {
+  public AuthServiceImpl(AccountRepo accountRepo, JwtService jwtService, PasswordEncoder passwordEncoder, SaltCreator saltCreator, ProfileService profileService) {
     this.accountRepo = accountRepo;
     this.jwtService = jwtService;
     this.passwordEncoder = passwordEncoder;
     this.saltCreator = saltCreator;
+    this.profileService = profileService;
   }
 
   @Override
@@ -53,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
     var refreshToken = jwtService.newRefreshToken(account, jti);
     account.setRefreshTokenJti(jti);
     accountRepo.save(account);
+    profileService.initProfile(account);
 
     var accessToken = jwtService.newAccessToken(account);
 

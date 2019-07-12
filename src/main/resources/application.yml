@@ -1,0 +1,26 @@
+needoff:
+  jwt:
+    accessTokenExpirationMinutes: 10080 # 1 week (dev value)
+    refreshTokenExpirationMinutes: 20160 # 2 weeks (dev value)
+    secretKey: "secret123"
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/needoff?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: altigee
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: true
+    exception-handlers-enabled: true
+    contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
+
+graphiql:
+  enabled: false

@@ -1,0 +1,33 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    profile: Profile!
+}
+
+type Mutation {
+    updateProfile(request: ProfileUpdate!): Profile!
+}
+
+# ------ com.altigee.needoff.users ------
+type Profile {
+    userId: ID!
+    email: String!
+    firstName: String
+    lastName: String
+    position: String
+    phone: String
+}
+
+input ProfileUpdate {
+    firstName: String
+    lastName: String
+    position: String
+    phone: String
+}
+
+# ------ com.altigee.needoff.balance ------
+# ------ com.altigee.needoff.auth    ------
+

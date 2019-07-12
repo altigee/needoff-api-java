@@ -8,25 +8,28 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 @Service
 public class JavaJwtService implements JwtService {
-
-  private String key = "1234";
+  @Value("${needoff.jwt.accessTokenExpirationMinutes}")
+  private int accessTokenExpirationMinutes;
+  @Value("${needoff.jwt.refreshTokenExpirationMinutes}")
+  private int refreshTokenExpirationMinutes;
+  @Value("${needoff.jwt.secretKey}")
+  private String secretKey;
 
   @Override
   public String newAccessToken(Account account) {
     return Jwts.builder()
         .setSubject(account.getId().toString())
         .setIssuedAt(new Date())
-        .setExpiration(newExpiration())
-        .signWith(SignatureAlgorithm.HS256, key)
+        .setExpiration(newExpiration(accessTokenExpirationMinutes))
+        .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
 
@@ -35,9 +38,9 @@ public class JavaJwtService implements JwtService {
     return Jwts.builder()
         .setSubject(account.getId().toString())
         .setIssuedAt(new Date())
-        .setExpiration(newExpiration())
+        .setExpiration(newExpiration(refreshTokenExpirationMinutes))
         .claim("jti", jti)
-        .signWith(SignatureAlgorithm.HS256, key)
+        .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
 
@@ -45,7 +48,7 @@ public class JavaJwtService implements JwtService {
   public ParsedToken parseToken(String token) throws InvalidTokenException, ExpiredTokenException {
     try {
       var body = Jwts.parser()
-          .setSigningKey(key)
+          .setSigningKey(secretKey)
           .parseClaimsJws(token)
           .getBody();
       return ParsedToken.builder()
@@ -61,9 +64,9 @@ public class JavaJwtService implements JwtService {
     }
   }
 
-  private static Date newExpiration() {
+  private Date newExpiration(int minutes) {
     Calendar calender = Calendar.getInstance();
-    calender.add(Calendar.MINUTE, 30);
+    calender.add(Calendar.MINUTE, minutes);
     return calender.getTime();
   }
 }
