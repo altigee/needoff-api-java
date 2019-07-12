@@ -1,6 +1,11 @@
+
 plugins {
 	id 'org.springframework.boot' version '2.1.6.RELEASE'
 	id 'java'
+}
+
+ext {
+	springBootVersion = '2.1.6.RELEASE'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -21,13 +26,22 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+	implementation "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+	implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
 	implementation 'com.graphql-java:graphql-spring-boot-starter:5.0.2'
 	implementation 'com.graphql-java:graphql-java-tools:5.2.4'
 	implementation 'mysql:mysql-connector-java:8.0.16'
-	implementation 'org.drools:drools-core:7.23.0.Final'
-	implementation 'org.kie:kie-spring:7.23.0.Final'
+	implementation ('org.drools:drools-core:7.23.0.Final') {
+		exclude group: 'org.slf4j', module: 'slf4j-api'
+	}
+	implementation ('org.kie:kie-spring:7.23.0.Final') {
+		exclude group: 'org.slf4j', module: 'slf4j-api'
+	}
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
