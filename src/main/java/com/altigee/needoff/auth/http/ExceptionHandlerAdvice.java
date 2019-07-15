@@ -1,6 +1,6 @@
 package com.altigee.needoff.auth.http;
 
-import com.altigee.needoff.auth.dto.ErrorDetails;
+import com.altigee.needoff.shared.dto.ErrorDetails;
 import com.altigee.needoff.auth.exception.ExpiredTokenException;
 import com.altigee.needoff.auth.exception.InvalidTokenException;
 import org.slf4j.Logger;

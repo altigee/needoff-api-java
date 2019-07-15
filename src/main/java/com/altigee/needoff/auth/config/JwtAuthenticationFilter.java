@@ -1,6 +1,6 @@
 package com.altigee.needoff.auth.config;
 
-import com.altigee.needoff.auth.dto.ErrorDetails;
+import com.altigee.needoff.shared.dto.ErrorDetails;
 import com.altigee.needoff.auth.exception.ExpiredTokenException;
 import com.altigee.needoff.auth.exception.InvalidTokenException;
 import com.altigee.needoff.auth.service.JwtService;
@@ -18,11 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.InvalidPropertiesFormatException;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
   public static final String AUTH_HEADER = "Authorization";
-  public static final String BEARER_PREFIX = "Bearer";
+  public static final String BEARER_PREFIX = "Bearer ";
 
   public static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
