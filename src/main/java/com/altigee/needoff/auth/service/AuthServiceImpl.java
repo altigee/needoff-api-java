@@ -58,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
     accountRepo.save(account);
     profileService.initProfile(account);
 
-    var accessToken = jwtService.newAccessToken(account);
+    var accessToken = jwtService.newAccessToken(account, randomJti());
 
     return RegisterResponse.builder()
         .id(account.getId())
@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
     if (!passwordEncoder.matches(password, account.getPassword())) {
       throw new WrongCredentialsException();
     }
-    var accessToken = jwtService.newAccessToken(account);
+    var accessToken = jwtService.newAccessToken(account, randomJti());
     var jti = randomJti();
     var refreshToken = jwtService.newRefreshToken(account, jti);
 
@@ -96,7 +96,7 @@ public class AuthServiceImpl implements AuthService {
       throw new InvalidTokenException("JTI validation failed");
     }
 
-    var accessToken = jwtService.newAccessToken(account);
+    var accessToken = jwtService.newAccessToken(account, randomJti());
     var jti = randomJti();
     var refreshToken = jwtService.newRefreshToken(account, jti);
 

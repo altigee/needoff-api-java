@@ -24,11 +24,12 @@ public class JavaJwtService implements JwtService {
   private String secretKey;
 
   @Override
-  public String newAccessToken(Account account) {
+  public String newAccessToken(Account account, String jti) {
     return Jwts.builder()
         .setSubject(account.getId().toString())
         .setIssuedAt(new Date())
         .setExpiration(newExpiration(accessTokenExpirationMinutes))
+        .claim("jti", jti)
         .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
