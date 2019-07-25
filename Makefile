@@ -4,7 +4,7 @@ build-app:
 	gradle build
 
 build-docker-image:
-	$(eval VERSION=$(shell sh -c "gradle properties -q | grep "version:" | sed 's/version: //g'"))
+	$(eval VERSION=$(shell sh -c "./gradlew properties -q | grep "version:" | sed 's/version: //g'"))
 	$(eval TAG=needoff-api:$(VERSION))
 	$(eval FILE := needoff-$(VERSION).jar)
 	docker build -t $(TAG) --build-arg APPLICATION_FILENAME=$(FILE) .
