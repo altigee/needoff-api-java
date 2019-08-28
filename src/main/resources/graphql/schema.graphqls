@@ -9,7 +9,13 @@ type Query {
 
 type Mutation {
     updateProfile(request: ProfileUpdate!): Profile!
+    saveUserDevice(token: String): UserDevice
+    removeUserDevice(token: String): UserDevice
+    createWorkspace(description: String, name: String): CreateWorkspace
+    updateWorkspace(description: String, name: String, wsId: Int): UpdateWorkspace
+    grantAccountAdminRoles(accountId: Int): Account
 }
+scalar Date
 
 # ------ com.altigee.needoff.users ------
 type Profile {
@@ -28,6 +34,32 @@ input ProfileUpdate {
     phone: String
 }
 
+type UserDevice {
+    userId: Int
+    token: String
+}
+
+type Workspace {
+    id: ID!
+    name: String!
+    description: String
+    invitationLinkToken: String
+}
+
+type CreateWorkspace {
+    ok: Boolean
+    ws: Workspace
+}
+
+type UpdateWorkspace {
+    ok: Boolean
+}
+
 # ------ com.altigee.needoff.balance ------
 # ------ com.altigee.needoff.auth    ------
+type Account{
+    id: ID!
+    email: String
+    roles: [String]
+}
 

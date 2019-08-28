@@ -34,6 +34,6 @@ public class ExceptionHandlerAdvice {
   @ExceptionHandler(Throwable.class)
   public ResponseEntity<ErrorDetails> handleGeneric(Throwable ex, WebRequest request) {
     LOG.error("Unknown exception", ex);
-    return ResponseEntity.status(500).body(ErrorDetails.builder().message("Internal Error").build());
+    return ResponseEntity.status(500).body(ErrorDetails.builder().message(ex.getMessage()).build());
   }
 }

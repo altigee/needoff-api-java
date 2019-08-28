@@ -17,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
   public static final String AUTH_HEADER = "Authorization";
@@ -30,10 +29,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Autowired
   private ObjectMapper serializer;
 
-  @Override
-  protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-    return request.getServletPath().startsWith("/auth");
-  }
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -45,7 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       var authToken = header.replace(BEARER_PREFIX, "");
       var jwt = jwtService.parseToken(authToken);
       var id = Long.parseLong(jwt.getSubject());
-      var authentication = new UsernamePasswordAuthenticationToken(id, "", Collections.emptyList()); //todo maybe there's a better way
+      var authorities = jwt.getAuthorities();
+      var authentication = new UsernamePasswordAuthenticationToken(id, "", authorities);
       SecurityContextHolder.getContext().setAuthentication(authentication);
     } catch (ExpiredTokenException | InvalidTokenException e) {
       var error = ErrorDetails.builder().message(e.getMessage()).build();

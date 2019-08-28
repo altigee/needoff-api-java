@@ -13,6 +13,12 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL8Dialect
+  jackson:
+    serialization:
+      indent_output : true
+  flyway:
+    locations: classpath:db/migration/mysql
+    baseline-on-migrate: true
 
 graphql:
   servlet:
@@ -24,3 +30,13 @@ graphql:
 
 graphiql:
   enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    ROOT: DEBUG
