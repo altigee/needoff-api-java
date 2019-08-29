@@ -3,4 +3,3 @@ insert IGNORE INTO role (id, name) VALUES
     (2, 'APPROVER'),
     (3, 'ADMIN'),
     (4, 'OWNER');
-
