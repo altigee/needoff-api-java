@@ -8,9 +8,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity @Data @Builder @AllArgsConstructor @NoArgsConstructor
+@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserProfile {
-  @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Id @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "account_id", unique = true)

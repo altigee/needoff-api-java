@@ -30,6 +30,7 @@ public class JavaJwtService implements JwtService {
         .setIssuedAt(new Date())
         .setExpiration(newExpiration(accessTokenExpirationMinutes))
         .claim("jti", jti)
+        .claim(JwtService.AUTHORITIES_KEY, RolesUtil.rolesToString(account.getRoles()))
         .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
@@ -41,6 +42,7 @@ public class JavaJwtService implements JwtService {
         .setIssuedAt(new Date())
         .setExpiration(newExpiration(refreshTokenExpirationMinutes))
         .claim("jti", jti)
+        .claim(AUTHORITIES_KEY, RolesUtil.rolesToString(account.getRoles()))
         .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
   }
@@ -57,6 +59,7 @@ public class JavaJwtService implements JwtService {
           .issuedAt(body.getIssuedAt())
           .expiresAt(body.getExpiration())
           .jti(body.get("jti", String.class))
+          .authorities(RolesUtil.stringToRole(body.get(AUTHORITIES_KEY, String.class)))
           .build();
     } catch (ExpiredJwtException e) {
       throw new ExpiredTokenException("Token has expired");
@@ -70,4 +73,7 @@ public class JavaJwtService implements JwtService {
     calender.add(Calendar.MINUTE, minutes);
     return calender.getTime();
   }
+
+
+
 }

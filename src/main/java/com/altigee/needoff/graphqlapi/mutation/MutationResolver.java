@@ -16,7 +16,8 @@ public class MutationResolver implements GraphQLMutationResolver {
   private ProfileService profileService;
 
   @Autowired
-  public MutationResolver(ProfileService profileService) {
+  public MutationResolver(
+      ProfileService profileService) {
     this.profileService = profileService;
   }
 
@@ -29,4 +30,6 @@ public class MutationResolver implements GraphQLMutationResolver {
       throw new GqlProfileNotFoundError();
     }
   }
+
+
 }

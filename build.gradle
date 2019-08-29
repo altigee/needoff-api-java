@@ -44,6 +44,7 @@ dependencies {
 		exclude group: 'org.slf4j', module: 'slf4j-api'
 	}
 	implementation "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+	implementation "org.flywaydb:flyway-core"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
