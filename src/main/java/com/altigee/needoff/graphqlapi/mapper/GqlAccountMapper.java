@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper
@@ -18,7 +19,7 @@ public interface GqlAccountMapper {
   @Mapping(source = "roles", target = "roles")
   GqlAccount toGraphQL(Account model);
 
-  default List<String> toRolesFromRoles(List<Role> roles) {
+  default List<String> toRolesFromRoles(Set<Role> roles) {
     return roles.stream().map(Role::getName).map(Enum::name).collect(Collectors.toList());
   }
 }

@@ -8,11 +8,10 @@ import java.util.List;
 @Data
 public class GqlAccount {
 
-    private Long id;
-
-    private LocalDateTime createdTime;
-    private String email;
-
-    private List<String> roles;
-
+  private Long id;
+  private String email;
+  private String status;
+  private List<String> roles;
+  private LocalDateTime createdTime;
+  private LocalDateTime updatedTime;
 }

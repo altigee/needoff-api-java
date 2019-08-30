@@ -5,6 +5,7 @@ schema {
 
 type Query {
     profile: Profile!
+    account(accountId: Int): Account!
 }
 
 type Mutation {
@@ -14,6 +15,7 @@ type Mutation {
     createWorkspace(description: String, name: String): CreateWorkspace
     updateWorkspace(description: String, name: String, wsId: Int): UpdateWorkspace
     grantAccountAdminRoles(accountId: Int): Account
+    grantRoles(accountId: Int, roles: [Role]): Account
 }
 scalar Date
 
@@ -61,5 +63,12 @@ type Account{
     id: ID!
     email: String
     roles: [String]
+}
+
+enum Role{
+    MEMBER,
+    APPROVER,
+    ADMIN,
+    OWNER
 }
 

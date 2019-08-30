@@ -59,7 +59,7 @@ public class JavaJwtService implements JwtService {
           .issuedAt(body.getIssuedAt())
           .expiresAt(body.getExpiration())
           .jti(body.get("jti", String.class))
-          .authorities(RolesUtil.stringToRole(body.get(AUTHORITIES_KEY, String.class)))
+          .authorities(RolesUtil.stringToAuthorities(body.get(AUTHORITIES_KEY, String.class)))
           .build();
     } catch (ExpiredJwtException e) {
       throw new ExpiredTokenException("Token has expired");

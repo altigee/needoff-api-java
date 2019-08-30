@@ -5,8 +5,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 @Data @Builder
 public class ParsedToken {
@@ -14,5 +13,5 @@ public class ParsedToken {
   private Date issuedAt;
   private Date expiresAt;
   private String jti;
-  private List<? extends GrantedAuthority> authorities;
+  private Set<? extends GrantedAuthority> authorities;
 }

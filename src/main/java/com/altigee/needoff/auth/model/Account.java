@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 // this was called "User" in Python api
 @Entity
@@ -23,7 +23,11 @@ public class Account {
   private String password;
   private String salt;
   private LocalDateTime createdTime;
+  private LocalDateTime updatedTime;
+
+  @Column(unique = true)
   private String email;
+
   private String refreshTokenJti;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -31,5 +35,14 @@ public class Account {
       name = "account_role",
       joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-  private List<Role> roles;
+  private Set<Role> roles;
+
+  @Enumerated(EnumType.STRING)
+  private Status status = Status.ACTIVE;
+
+
+  public enum Status {
+    ACTIVE,
+    DELETED,
+  }
 }

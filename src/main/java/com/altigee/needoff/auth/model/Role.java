@@ -1,11 +1,13 @@
 package com.altigee.needoff.auth.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@EqualsAndHashCode
 public class Role{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
