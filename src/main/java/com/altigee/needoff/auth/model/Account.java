@@ -1,5 +1,6 @@
 package com.altigee.needoff.auth.model;
 
+import com.altigee.needoff.organization.model.Organization;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +41,9 @@ public class Account {
   @Enumerated(EnumType.STRING)
   private Status status = Status.ACTIVE;
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "organization_id")
+  private Organization organization;
 
   public enum Status {
     ACTIVE,

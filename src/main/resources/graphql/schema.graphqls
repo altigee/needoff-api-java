@@ -16,8 +16,9 @@ type Mutation {
     updateWorkspace(description: String, name: String, wsId: Int): UpdateWorkspace
     grantAccountAdminRoles(accountId: Int): Account
     grantRoles(accountId: Int, roles: [Role]): Account
+    saveOrganization(organization: CreateOrganization): Organization
 }
-scalar Date
+scalar DateTime
 
 # ------ com.altigee.needoff.users ------
 type Profile {
@@ -72,3 +73,13 @@ enum Role{
     OWNER
 }
 
+# ------ com.altigee.needoff.organization ------
+input CreateOrganization {
+    name:String
+}
+
+type Organization{
+    id:ID!
+    name:String
+    createdTime:DateTime
+}

@@ -36,6 +36,8 @@ dependencies {
 
 	implementation 'com.graphql-java:graphql-spring-boot-starter:5.0.2'
 	implementation 'com.graphql-java:graphql-java-tools:5.2.4'
+	implementation 'com.graphql-java:graphql-java-extended-scalars:1.0'
+
 	implementation 'mysql:mysql-connector-java:8.0.16'
 	implementation ('org.drools:drools-core:7.23.0.Final') {
 		exclude group: 'org.slf4j', module: 'slf4j-api'
