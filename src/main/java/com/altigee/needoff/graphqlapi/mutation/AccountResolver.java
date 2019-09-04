@@ -26,7 +26,7 @@ public class AccountResolver implements GraphQLMutationResolver {
   public GqlAccount grantAccountAdminRoles(Long accountId) {
 
     return accountService
-        .grantAccount(accountId)
+        .grantAccountAllRoles(accountId)
         .map(GqlAccountMapper.INSTANCE::toGraphQL)
         .orElseThrow(() -> new GqlError("cannot associate roles with the account"));
   }
@@ -46,4 +46,5 @@ public class AccountResolver implements GraphQLMutationResolver {
         .map(GqlAccountMapper.INSTANCE::toGraphQL)
         .orElseThrow(() -> new GqlError("cannot change account status"));
   }
+
 }

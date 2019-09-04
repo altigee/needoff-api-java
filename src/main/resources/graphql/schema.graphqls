@@ -17,6 +17,7 @@ type Mutation {
     grantAccountAdminRoles(accountId: Int): Account
     grantRoles(accountId: Int, roles: [Role]): Account
     saveOrganization(organization: CreateOrganization): Organization
+    updateOrganization(organization: UpdateOrganization): Organization
 }
 scalar DateTime
 
@@ -77,9 +78,13 @@ enum Role{
 input CreateOrganization {
     name:String
 }
+input UpdateOrganization {
+    id: ID!
+    name: String
+}
 
 type Organization{
-    id:ID!
-    name:String
-    createdTime:DateTime
+    id: ID!
+    name: String
+    createdTime: DateTime
 }

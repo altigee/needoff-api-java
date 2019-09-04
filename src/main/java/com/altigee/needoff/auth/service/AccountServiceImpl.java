@@ -20,7 +20,7 @@ public class AccountServiceImpl implements AccountService {
   @Autowired private RoleRepo roleRepo;
 
   @Override
-  public Optional<Account> grantAccount(Long accountId) {
+  public Optional<Account> grantAccountAllRoles(Long accountId) {
 
     return accountRepo
         .findById(accountId)

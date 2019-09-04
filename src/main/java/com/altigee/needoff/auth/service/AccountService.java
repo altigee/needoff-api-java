@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface AccountService {
 
-    Optional<Account> grantAccount(Long accountId);
+    Optional<Account> grantAccountAllRoles(Long accountId);
 
     Optional<Account> grantRoles(Long accountId, Set<Role.Type> roles);
 
