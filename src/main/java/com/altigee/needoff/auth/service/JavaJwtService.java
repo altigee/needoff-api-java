@@ -4,10 +4,7 @@ import com.altigee.needoff.auth.dto.ParsedToken;
 import com.altigee.needoff.auth.exception.ExpiredTokenException;
 import com.altigee.needoff.auth.exception.InvalidTokenException;
 import com.altigee.needoff.auth.model.Account;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +60,7 @@ public class JavaJwtService implements JwtService {
           .build();
     } catch (ExpiredJwtException e) {
       throw new ExpiredTokenException("Token has expired");
-    } catch (SignatureException | IllegalArgumentException e) {
+    } catch (MalformedJwtException | SignatureException | IllegalArgumentException e) {
       throw new InvalidTokenException("Token signature is invalid or the token is malformed");
     }
   }

@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
-        .antMatcher("/graphql")
         .authorizeRequests()
-        .anyRequest().authenticated()
+        .antMatchers("/graphql").authenticated()
+        .anyRequest().permitAll()
         .and()
         .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
   }
